@@ -1,0 +1,113 @@
+.orders {
+    width: 100%;
+    padding: 30px;
+    overflow: hidden;
+}
+
+.orders h3 {
+    color: #fff;
+    letter-spacing: 3px;
+    font-weight: 400;
+}
+
+.orders .search-box {
+    background: rgba(0, 0, 0, .2);
+    border-radius: 5px;
+}
+
+.orders .input-group {
+    height: 40px;
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.orders .input-group input {
+    width: 94%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: #fff;
+    margin-left: 4px;
+}
+
+.orders .input-group input::placeholder {
+    color: #fff;
+}
+
+.orders .input-group input:focus {
+    outline: none;
+}
+
+.orders .input-group i {
+    width: 5%;
+    font-size: 18px;
+}
+
+.orders .table-box {
+    background: rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    height: 530px;
+    overflow-y: scroll;
+}
+
+.orders .table th {
+    color: rgba(235, 235, 235, 0.749);
+    font-size: 18px;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.669) !important;
+    font-weight: 500;
+}
+
+.orders .table td {
+    color: #ddd;
+    border-color: rgba(170, 170, 170, 0.669);
+    font-weight: 400;
+}
+
+.orders table th {
+    padding: 10px 0px 10px 20px;
+}
+
+.orders table td {
+    padding: 10px 0px 10px 30px;
+}
+
+.orders table td {
+    position: relative;
+}
+
+.orders tbody .td-hover i:hover:after {
+    content: "View";
+    position: absolute;
+    top: -10px;
+    left: 0px;
+    background-color: #222;
+    border-radius: 70%;
+    font-size: 12px;
+    height: 24px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    ;
+}
+
+.orders tbody .completed{
+    color: #3cb72c;
+    font-weight: 600;
+    position: relative;
+}
+.orders tbody .completed::after{
+    content: "";
+    position: absolute;
+    top: 17px;
+    left: 10px;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background: #3cb72c;
+}

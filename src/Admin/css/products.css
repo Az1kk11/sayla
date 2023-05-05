@@ -1,0 +1,59 @@
+.products {
+    width: 100%;
+    padding: 20px;
+}
+.products h3{
+    color: #fff;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    margin-left: 10px;
+}
+.products .bg-table{
+    height: 560px;
+    overflow-x: auto;
+    background: rgba(0,0,0,.2);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.products table th {
+    color: rgba(235, 235, 235, 0.749);
+    font-size: 18px;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.669) !important;
+    font-weight: 500;
+}
+.products .table td {
+    color: #ddd;
+    border-color: rgba(170, 170, 170, 0.669);
+    font-weight: 500;
+}
+.products table th {
+    padding: 10px 0px 10px 20px;
+}
+
+.products table td {
+    padding: 10px 0px 10px 30px;
+}
+.products .table img {
+    width: 45px;
+    height: 40px;
+    object-fit: cover;
+}
+@media (max-width: 450px) {
+    .products .table {
+        font-size: 12px !important;
+    }
+
+    .products .table tbody {
+        font-size: 10px !important;
+    }
+
+    .products .table tbody td {
+        padding: 10px 0px !important;
+    }
+
+    .products .table .btn {
+        font-size: 12px;
+        padding: 3px 6px;
+    }
+}
