@@ -9,17 +9,18 @@ import ProductService from '../../redux/services/productsService'
 
 function AddProducts() {
   const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [seller, setSeller] = useState('')
+  const [title_img, setTitle_img] = useState('')
   const [first_price, setFirst_price] = useState('')
-  const [categories, setCategories] = useState('')
-  const [images_url, setImages_url] = useState(null)
+  const [description, setDescription] = useState('')
+  const [seller_id, setSeller_id] = useState([2,3])
+  const [images_url, setImages_url] = useState('sadasdsd')
+  const [category_id, setCategory_id] = useState()
   const dispatch = useDispatch()
   const { isLoading} = useSelector(state => state.product)
 
   const formSubmit = async e => {
     e.preventDefault()
-    const product = {name, description, seller, first_price, categories, images_url }
+    const product = {name, description, seller_id, first_price, category_id, title_img, images_url }
     dispatch(postProductStart())
     try {
       await ProductService.postProduct(product)
@@ -28,6 +29,8 @@ function AddProducts() {
       console.log(error);
     }
   }
+
+  
 
   return (
     <Helmet title='Add-Products'>
@@ -59,15 +62,17 @@ function AddProducts() {
                 </FormGroup>
               </Col>
               <Col lg='6'>
-                <FormGroup className="form__group">
-                  <span>Firma name</span>
-                  <Input
-                    type="text"
-                    placeholder="Description"
+              <FormGroup className="form__group">
+                  <span>Category</span>
+                  <Input type='select'
+                    className="w-100 p-2"
                     required
-                    value={seller}
-                    onChange={(e) => setSeller(e.target.value)}
-                  />
+                    value={seller_id}
+                    onChange={(e) => setSeller_id(e.target.value)}
+                  >
+                    <option>Select category</option>
+                    <option value="2">Kardar</option>
+                  </Input>
                 </FormGroup>
               </Col>
               <Col lg='6'>
@@ -88,11 +93,11 @@ function AddProducts() {
                   <Input type='select'
                     className="w-100 p-2"
                     required
-                    value={categories}
-                    onChange={(e) => setCategories(e.target.value)}
+                    value={category_id}
+                    onChange={(e) => setCategory_id(e.target.value)}
                   >
                     <option>Select category</option>
-                    <option value="chair">Chair</option>
+                    <option value={2} >Chair</option>
                     <option value="sofa">Sofa</option>
                     <option value="mobile">Mobile</option>
                     <option value="watch">Watch</option>
@@ -104,10 +109,11 @@ function AddProducts() {
                 <FormGroup className="form__group">
                   <span>Product Image</span>
                   <Input
-                    type="file"
+                    type="text"
                     className='p-2'
                     required
-                    onChange={(e) => setImages_url(e.target.files[0])}
+                    value={title_img}
+                    onChange={(e) => setTitle_img(e.target.value)}
                   />
                 </FormGroup>
               </Col>
@@ -115,7 +121,6 @@ function AddProducts() {
             <Button
               color="primary"
               type='submit'
-              disabled={isLoading}
             >
               {isLoading ? 'Loading...' : 'Add'}
             </Button>
