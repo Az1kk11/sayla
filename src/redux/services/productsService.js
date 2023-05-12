@@ -10,7 +10,7 @@ const ProductService = {
         return data
     },
     async postProduct(product) {
-        const {data} = await axios.post ('/product/create', product)
+        const {data} = await axios.post ('/product/create', { product })
         return data
     }
 }

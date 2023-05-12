@@ -1,78 +1,110 @@
 import React from 'react'
-import { Button, Col, Container, Form, FormGroup, Input, Row } from 'reactstrap'
+import { Button, ButtonGroup, Col, Container, Form, FormGroup, Input, Row } from 'reactstrap'
 import '../css/addProducts.css'
 import Helmet from '../../Components/Helmet/Helmet'
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { postProductStart, postProductSuccess } from '../../redux/slice/productsSlice'
+import { getCategorieFailure, getCategorieStart, getCategorieSuccess } from '../../redux/slice/categorieSlice'
+import CategoryServices from '../../redux/services/categorieServices'
+import { useEffect } from 'react'
+import { getSellerFailure, getSellerStart, getSellerSuccess } from '../../redux/slice/sellerSlice'
+import SellerServices from '../../redux/services/sellerServices'
+import { useState } from 'react'
+import { postProductFailure, postProductStart, postProductSuccess } from '../../redux/slice/productsSlice'
 import ProductService from '../../redux/services/productsService'
 
 function AddProducts() {
-  const [name, setName] = useState('')
-  const [title_img, setTitle_img] = useState('')
-  const [first_price, setFirst_price] = useState('')
-  const [description, setDescription] = useState('')
-  const [seller_id, setSeller_id] = useState([2,3])
-  const [images_url, setImages_url] = useState('sadasdsd')
-  const [category_id, setCategory_id] = useState()
-  const dispatch = useDispatch()
-  const { isLoading} = useSelector(state => state.product)
 
-  const formSubmit = async e => {
-    e.preventDefault()
-    const product = {name, description, seller_id, first_price, category_id, title_img, images_url }
-    dispatch(postProductStart())
+  const [inputValue, setInputValue] = useState({
+    name: '',
+    title_img: '',
+    first_price: '',
+    discount: '',
+    seller_id: '',
+    description: ''
+  })
+
+  const [ category_id, setCategory_id ] = useState([])
+  const [ images, setImages ] = useState([])
+
+  const dispatch = useDispatch()
+  const { isLoading } = useSelector(state => state.product)
+  const { categories } = useSelector(state => state.categorie)
+  const { sellers } = useSelector(state => state.seller)
+
+  const getCategories = async () => {
+    dispatch(getCategorieStart())
     try {
-      await ProductService.postProduct(product)
-      dispatch(postProductSuccess())
+      const response = await CategoryServices.getCategorys()
+      dispatch(getCategorieSuccess(response.categories))
     } catch (error) {
-      console.log(error);
+      dispatch(getCategorieFailure(error))
     }
   }
+  const getSellers = async () => {
+    dispatch(getSellerStart())
+    try {
+      const response = await SellerServices.getSellers()
+      dispatch(getSellerSuccess(response.sellers))
+    } catch (error) {
+      dispatch(getSellerFailure(error))
+    }
+  }
+  useEffect(() => {
+    getCategories()
+    getSellers()
+  }, [])
 
+  const handleChange = e => {
+    setInputValue({ ...inputValue, [e.target.name]: e.target.value });
+  }
+
+  const handleImageChange = e => {
+    const file = Array.from(e.target.files)
+    setImages(file)
+  }
   
+  const onCheckboxBtnClick = (selected) => {
+    const index = category_id.indexOf(selected);
+    if (index < 0) {
+      category_id.push(selected)
+    } else {
+      category_id.splice(index, 1)
+    }
+    setCategory_id([...category_id])
+    setInputValue({ ...inputValue, category_id, images })
+  };
+
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    dispatch(postProductStart())
+    try {
+      await ProductService.postProduct(inputValue)
+      dispatch(postProductSuccess())
+    } catch (error) {
+      dispatch(postProductFailure())
+    }
+  }
+  console.log(inputValue);
 
   return (
     <Helmet title='Add-Products'>
       <section className='add-product'>
         <Container>
           <h4 className="mb-3">Add products</h4>
-          <Form onSubmit={formSubmit} >
-            <FormGroup className="form__group">
-              <span>Product title</span>
-              <Input
-                type="text"
-                placeholder="Double sofa"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </FormGroup>
+          <Form onSubmit={handleSubmit}>
             <Row>
               <Col lg='6'>
                 <FormGroup className="form__group">
-                  <span>Description</span>
+                  <span>Product Name</span>
                   <Input
                     type="text"
-                    placeholder="Description"
+                    placeholder="Double sofa"
                     required
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    name='name'
+                    value={inputValue.name}
+                    onChange={handleChange}
                   />
-                </FormGroup>
-              </Col>
-              <Col lg='6'>
-              <FormGroup className="form__group">
-                  <span>Category</span>
-                  <Input type='select'
-                    className="w-100 p-2"
-                    required
-                    value={seller_id}
-                    onChange={(e) => setSeller_id(e.target.value)}
-                  >
-                    <option>Select category</option>
-                    <option value="2">Kardar</option>
-                  </Input>
                 </FormGroup>
               </Col>
               <Col lg='6'>
@@ -82,38 +114,82 @@ function AddProducts() {
                     type="number"
                     placeholder="$120"
                     required
-                    value={first_price}
-                    onChange={(e) => setFirst_price(e.target.value)}
+                    name='first_price'
+                    value={inputValue.first_price}
+                    onChange={handleChange}
                   />
                 </FormGroup>
               </Col>
               <Col lg='6'>
                 <FormGroup className="form__group">
-                  <span>Category</span>
+                  <span>Description</span>
+                  <Input
+                    type="text"
+                    placeholder="Description"
+                    required
+                    name='description'
+                    value={inputValue.description}
+                    onChange={handleChange}
+                  />
+                </FormGroup>
+              </Col>
+              <Col lg='6'>
+                <FormGroup className="form__group">
+                  <span>Campany</span>
                   <Input type='select'
                     className="w-100 p-2"
                     required
-                    value={category_id}
-                    onChange={(e) => setCategory_id(e.target.value)}
+                    name='seller_id'
+                    value={inputValue.seller_id}
+                    onChange={handleChange}
                   >
-                    <option>Select category</option>
-                    <option value={2} >Chair</option>
-                    <option value="sofa">Sofa</option>
-                    <option value="mobile">Mobile</option>
-                    <option value="watch">Watch</option>
-                    <option value="wireless">Wireless</option>
+                    <option>Select campany</option>
+                    {sellers.map((item, index) => (
+                      <option key={index} value={item.id}>{item.title}</option>
+                    ))}
                   </Input>
+                </FormGroup>
+              </Col>
+              <Col lg='6'>
+                <h3 className='text-light fs-5 mb-2'>Category</h3>
+                <ButtonGroup>
+                  {
+                    categories.map((item, index) => (
+                      <Button
+                        key={index}
+                        color="primary"
+                        outline
+                        onClick={() => onCheckboxBtnClick(item.id)}
+                        active={category_id.includes(item.id)}
+                      >
+                        {item.title}
+                      </Button>
+                    ))
+                  }
+                </ButtonGroup>
+              </Col>
+              <Col lg='6'>
+                <FormGroup className="form__group">
+                  <span>Title Image</span>
+                  <Input
+                    type="file"
+                    className='p-2'
+                    required
+                    name='title_img'
+                    value={inputValue.title_img}
+                    onChange={handleChange}
+                  />
                 </FormGroup>
               </Col>
               <Col lg='6'>
                 <FormGroup className="form__group">
                   <span>Product Image</span>
                   <Input
-                    type="text"
                     className='p-2'
-                    required
-                    value={title_img}
-                    onChange={(e) => setTitle_img(e.target.value)}
+                    type="file"
+                    multiple
+                    name='images'
+                    onChange={handleImageChange}
                   />
                 </FormGroup>
               </Col>
