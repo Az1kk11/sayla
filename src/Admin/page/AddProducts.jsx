@@ -13,18 +13,13 @@ import { postProductFailure, postProductStart, postProductSuccess } from '../../
 import ProductService from '../../redux/services/productsService'
 
 function AddProducts() {
-
-  const [inputValue, setInputValue] = useState({
-    name: '',
-    title_img: '',
-    first_price: '',
-    discount: '',
-    seller_id: '',
-    description: ''
-  })
-
-  const [ category_id, setCategory_id ] = useState([])
-  const [ images, setImages ] = useState([])
+  const [name, setName] = useState('')
+  const [first_price, setFirst_price] = useState('')
+  const [seller_id, setSeller_id] = useState([])
+  const [description, setDescription] = useState('')
+  const [title_img, setTitle_img] = useState([])
+  const [category_id, setCategory_id] = useState([])
+  const [images, setImages] = useState([])
 
   const dispatch = useDispatch()
   const { isLoading } = useSelector(state => state.product)
@@ -54,15 +49,12 @@ function AddProducts() {
     getSellers()
   }, [])
 
-  const handleChange = e => {
-    setInputValue({ ...inputValue, [e.target.name]: e.target.value });
-  }
 
   const handleImageChange = e => {
     const file = Array.from(e.target.files)
     setImages(file)
   }
-  
+
   const onCheckboxBtnClick = (selected) => {
     const index = category_id.indexOf(selected);
     if (index < 0) {
@@ -71,22 +63,22 @@ function AddProducts() {
       category_id.splice(index, 1)
     }
     setCategory_id([...category_id])
-    setInputValue({ ...inputValue, category_id, images })
   };
 
 
   const handleSubmit = async e => {
     e.preventDefault()
     dispatch(postProductStart())
+    const products = { name, seller_id, category_id, images, title_img, description, first_price }
+    console.log(products);
     try {
-      await ProductService.postProduct(inputValue)
+      await ProductService.postProduct(products)
       dispatch(postProductSuccess())
     } catch (error) {
       dispatch(postProductFailure())
     }
   }
-  console.log(inputValue);
-
+  URL.createObjectURL()
   return (
     <Helmet title='Add-Products'>
       <section className='add-product'>
@@ -102,8 +94,8 @@ function AddProducts() {
                     placeholder="Double sofa"
                     required
                     name='name'
-                    value={inputValue.name}
-                    onChange={handleChange}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </FormGroup>
               </Col>
@@ -115,8 +107,8 @@ function AddProducts() {
                     placeholder="$120"
                     required
                     name='first_price'
-                    value={inputValue.first_price}
-                    onChange={handleChange}
+                    value={first_price}
+                    onChange={(e) => setFirst_price(e.target.value)}
                   />
                 </FormGroup>
               </Col>
@@ -128,8 +120,8 @@ function AddProducts() {
                     placeholder="Description"
                     required
                     name='description'
-                    value={inputValue.description}
-                    onChange={handleChange}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                 </FormGroup>
               </Col>
@@ -140,8 +132,8 @@ function AddProducts() {
                     className="w-100 p-2"
                     required
                     name='seller_id'
-                    value={inputValue.seller_id}
-                    onChange={handleChange}
+                    value={seller_id}
+                    onChange={(e) => setSeller_id(e.target.value)}
                   >
                     <option>Select campany</option>
                     {sellers.map((item, index) => (
@@ -176,8 +168,7 @@ function AddProducts() {
                     className='p-2'
                     required
                     name='title_img'
-                    value={inputValue.title_img}
-                    onChange={handleChange}
+                    onChange={(e) => setTitle_img(e.target.files[0])}
                   />
                 </FormGroup>
               </Col>
@@ -188,7 +179,6 @@ function AddProducts() {
                     className='p-2'
                     type="file"
                     multiple
-                    name='images'
                     onChange={handleImageChange}
                   />
                 </FormGroup>
