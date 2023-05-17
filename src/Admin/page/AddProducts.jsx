@@ -1,25 +1,29 @@
-import React from 'react'
-import { Button, ButtonGroup, Col, Container, Form, FormGroup, Input, Row } from 'reactstrap'
-import '../css/addProducts.css'
-import Helmet from '../../Components/Helmet/Helmet'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
 import { getCategorieFailure, getCategorieStart, getCategorieSuccess } from '../../redux/slice/categorieSlice'
-import CategoryServices from '../../redux/services/categorieServices'
-import { useEffect } from 'react'
 import { getSellerFailure, getSellerStart, getSellerSuccess } from '../../redux/slice/sellerSlice'
-import SellerServices from '../../redux/services/sellerServices'
-import { useState } from 'react'
 import { postProductFailure, postProductStart, postProductSuccess } from '../../redux/slice/productsSlice'
+
+import CategoryServices from '../../redux/services/categorieServices'
+import SellerServices from '../../redux/services/sellerServices'
 import ProductService from '../../redux/services/productsService'
 
+import Helmet from '../../Components/Helmet/Helmet'
+import { Button, ButtonGroup, Col, Container, Form, FormGroup, Input, Row } from 'reactstrap'
+
+import '../css/addProducts.css'
+
 function AddProducts() {
-  const [name, setName] = useState('')
-  const [first_price, setFirst_price] = useState('')
-  const [seller_id, setSeller_id] = useState([])
-  const [description, setDescription] = useState('')
-  const [title_img, setTitle_img] = useState([])
   const [category_id, setCategory_id] = useState([])
-  const [images, setImages] = useState([])
+  const [values, setValues] = useState({
+    name: '',
+    first_price: '',
+    seller_id: '',
+    description: '',
+    title_img: null,
+    images: []
+  })
 
   const dispatch = useDispatch()
   const { isLoading } = useSelector(state => state.product)
@@ -35,6 +39,7 @@ function AddProducts() {
       dispatch(getCategorieFailure(error))
     }
   }
+
   const getSellers = async () => {
     dispatch(getSellerStart())
     try {
@@ -44,16 +49,11 @@ function AddProducts() {
       dispatch(getSellerFailure(error))
     }
   }
+
   useEffect(() => {
     getCategories()
     getSellers()
   }, [])
-
-
-  const handleImageChange = e => {
-    const file = Array.from(e.target.files)
-    setImages(file)
-  }
 
   const onCheckboxBtnClick = (selected) => {
     const index = category_id.indexOf(selected);
@@ -68,9 +68,19 @@ function AddProducts() {
 
   const handleSubmit = async e => {
     e.preventDefault()
+    const products = new FormData()
+    products.set('name', values.name)
+    products.set('title_img', values.title_img)
+    products.set('first_price', values.first_price)
+    products.set('seller_id', values.seller_id)
+    products.set('description', values.description)
+    for (let i = 0; i < values.images.length; i++) {
+      products.append(`images[${i}]`, values.images[0])
+    }
+    for (let k = 0; k < category_id.length; k++) {
+      products.append(`category_id[${k}]`, category_id[0])
+    }
     dispatch(postProductStart())
-    const products = { name, seller_id, category_id, images, title_img, description, first_price }
-    console.log(products);
     try {
       await ProductService.postProduct(products)
       dispatch(postProductSuccess())
@@ -78,7 +88,26 @@ function AddProducts() {
       dispatch(postProductFailure())
     }
   }
-  URL.createObjectURL()
+
+  const onChangeName = e => {
+    setValues({ ...values, name: e.currentTarget.value })
+  }
+  const onChangeFirst_price = e => {
+    setValues({ ...values, first_price: e.currentTarget.value })
+  }
+  const onChangeDescription = e => {
+    setValues({ ...values, description: e.currentTarget.value })
+  }
+  const onChangeSeller_id = e => {
+    setValues({ ...values, seller_id: e.currentTarget.value })
+  }
+  const onChangeImages = e => {
+    setValues({ ...values, images: e.currentTarget.files })
+  }
+  const onChangeTitleImg = e => {
+    setValues({ ...values, title_img: e.target.files[0] })
+  }
+
   return (
     <Helmet title='Add-Products'>
       <section className='add-product'>
@@ -94,8 +123,7 @@ function AddProducts() {
                     placeholder="Double sofa"
                     required
                     name='name'
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={onChangeName}
                   />
                 </FormGroup>
               </Col>
@@ -107,8 +135,7 @@ function AddProducts() {
                     placeholder="$120"
                     required
                     name='first_price'
-                    value={first_price}
-                    onChange={(e) => setFirst_price(e.target.value)}
+                    onChange={onChangeFirst_price}
                   />
                 </FormGroup>
               </Col>
@@ -120,8 +147,7 @@ function AddProducts() {
                     placeholder="Description"
                     required
                     name='description'
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={onChangeDescription}
                   />
                 </FormGroup>
               </Col>
@@ -132,8 +158,7 @@ function AddProducts() {
                     className="w-100 p-2"
                     required
                     name='seller_id'
-                    value={seller_id}
-                    onChange={(e) => setSeller_id(e.target.value)}
+                    onChange={onChangeSeller_id}
                   >
                     <option>Select campany</option>
                     {sellers.map((item, index) => (
@@ -151,6 +176,7 @@ function AddProducts() {
                         key={index}
                         color="primary"
                         outline
+                        name='category_id'
                         onClick={() => onCheckboxBtnClick(item.id)}
                         active={category_id.includes(item.id)}
                       >
@@ -168,7 +194,7 @@ function AddProducts() {
                     className='p-2'
                     required
                     name='title_img'
-                    onChange={(e) => setTitle_img(e.target.files[0])}
+                    onChange={onChangeTitleImg}
                   />
                 </FormGroup>
               </Col>
@@ -176,10 +202,10 @@ function AddProducts() {
                 <FormGroup className="form__group">
                   <span>Product Image</span>
                   <Input
-                    className='p-2'
-                    type="file"
                     multiple
-                    onChange={handleImageChange}
+                    className='p-2'
+                    type='file'
+                    onChange={onChangeImages}
                   />
                 </FormGroup>
               </Col>

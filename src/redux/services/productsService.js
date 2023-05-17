@@ -1,8 +1,8 @@
 import axios from "./api";
 
 const ProductService = {
-    async getProducts() {
-        const { data } = await axios.get('/products')
+    async getProducts(item) {
+        const { data } = await axios.get(`/products?page=${item}`)
         return data
     },
     async deleteProduct(id) {

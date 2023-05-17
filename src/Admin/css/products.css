@@ -9,11 +9,13 @@
     margin-left: 10px;
 }
 .products .bg-table{
-    height: 560px;
+    height: 490px;
     overflow-x: auto;
     background: rgba(0,0,0,.2);
     padding: 20px;
     border-radius: 5px;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .products table th {
