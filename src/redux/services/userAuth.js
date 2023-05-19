@@ -3,7 +3,7 @@ import axios from "./api";
 const UserAuthServices = {
     async getUsers(){
         const {data} = await axios.get('/users')
-        console.log(data);
+        return data
     }
 }
 export default UserAuthServices

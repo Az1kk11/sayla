@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { getCategorieFailure, getCategorieStart, getCategorieSuccess } from '../../redux/slice/categorieSlice'
 import { getSellerFailure, getSellerStart, getSellerSuccess } from '../../redux/slice/sellerSlice'
-import { postProductFailure, postProductStart, postProductSuccess } from '../../redux/slice/productsSlice'
+import { postProductStart, postProductSuccess } from '../../redux/slice/productsSlice'
 
 import CategoryServices from '../../redux/services/categorieServices'
 import SellerServices from '../../redux/services/sellerServices'
@@ -13,9 +13,14 @@ import Helmet from '../../Components/Helmet/Helmet'
 import { Button, ButtonGroup, Col, Container, Form, FormGroup, Input, Row } from 'reactstrap'
 
 import '../css/addProducts.css'
+import { toast } from 'react-toastify'
 
 function AddProducts() {
+  const { isLoading } = useSelector(state => state.product)
+  const { categories } = useSelector(state => state.categorie)
+  const { sellers } = useSelector(state => state.seller)
   const [category_id, setCategory_id] = useState([])
+  const dispatch = useDispatch()
   const [values, setValues] = useState({
     name: '',
     first_price: '',
@@ -25,11 +30,6 @@ function AddProducts() {
     images: []
   })
 
-  const dispatch = useDispatch()
-  const { isLoading } = useSelector(state => state.product)
-  const { categories } = useSelector(state => state.categorie)
-  const { sellers } = useSelector(state => state.seller)
-
   const getCategories = async () => {
     dispatch(getCategorieStart())
     try {
@@ -37,6 +37,7 @@ function AddProducts() {
       dispatch(getCategorieSuccess(response.categories))
     } catch (error) {
       dispatch(getCategorieFailure(error))
+      toast.error(error.message)
     }
   }
 
@@ -47,6 +48,7 @@ function AddProducts() {
       dispatch(getSellerSuccess(response.sellers))
     } catch (error) {
       dispatch(getSellerFailure(error))
+      toast.error(error.message)
     }
   }
 
@@ -64,7 +66,6 @@ function AddProducts() {
     }
     setCategory_id([...category_id])
   };
-
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -84,8 +85,9 @@ function AddProducts() {
     try {
       await ProductService.postProduct(products)
       dispatch(postProductSuccess())
+      toast.success('Product succesfuly created')
     } catch (error) {
-      dispatch(postProductFailure())
+      toast.error(error.message)
     }
   }
 

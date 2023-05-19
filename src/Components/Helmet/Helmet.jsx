@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Helmet(props) {
-    document.title = 'Sayle - ' + props.title
+  document.title = 'Sayle - ' + props.title
   return (
     <div className='w-100' > {props.children} </div>
   )

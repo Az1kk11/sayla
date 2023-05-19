@@ -12,7 +12,7 @@ function ProductsItem({ item, getProducts }) {
             console.log(error);
         }
     }
-    
+
     return (
         <tr>
             <td>{item?.id}</td>

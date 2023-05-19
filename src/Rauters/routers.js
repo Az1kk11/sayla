@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { AddProducts, AdminLogin, Info, OrderDetails, Products, Users, Order } from '../Admin/page/index'
+import { AddProducts, AdminLogin, Info, OrderDetails, Products, Users, Order, AddSellers } from '../Admin/page/index'
 import Protected from './protected'
 import Home from '../page/home'
 
@@ -17,6 +17,7 @@ function Routers() {
           <Route element={<AddProducts />} path='/admin/add-products' exact />
           <Route element={<Users />} path='/admin/users' exact />
           <Route element={<Order />} path='/admin/orders' exact />
+          <Route element={<AddSellers />} path='/admin/add-seller' exact />
           <Route element={<OrderDetails />} path='/admin/orders/order-details' exact />
         </Route>
     </Routes>

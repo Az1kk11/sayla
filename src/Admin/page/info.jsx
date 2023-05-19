@@ -1,13 +1,15 @@
-import { Container } from 'reactstrap'
-import '../css/info.css'
-import Helmet from '../../Components/Helmet/Helmet'
 import { useSelector } from 'react-redux'
+import { Container } from 'reactstrap'
+import Helmet from '../../Components/Helmet/Helmet'
+import '../css/info.css'
 
 function Info() {
-  const {products} = useSelector(state => state.product)
-  
+  const { products } = useSelector(state => state.product)
+  const { orders } = useSelector(state => state.order)
+  const { users } = useSelector(state => state.user)
+
   return (
-    <Helmet title='Info'>
+    <Helmet title='Info' >
       <section className='info' >
         <Container>
           <h3>Info</h3>
@@ -22,11 +24,11 @@ function Info() {
             </div>
             <div className="card">
               <h4>Total Users</h4>
-              <span>1223</span>
+              <span>{users.length}</span>
             </div>
             <div className="card">
               <h4>Total Orders</h4>
-              <span>1223</span>
+              <span>{orders.length}</span>
             </div>
           </div>
         </Container>

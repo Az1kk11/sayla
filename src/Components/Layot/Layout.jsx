@@ -7,10 +7,10 @@ import './layout.css'
 function Layout() {
   const location = useLocation()
   return (
-    <div className={location.pathname.startsWith('/admin') ? 'layout' : 'layout-users' } >
-      {location.pathname.startsWith('/admin') ? <LeftNavbar /> : '' }
+    <div className={location.pathname.startsWith('/admin') ? 'layout' : 'layout-users'} >
+      {location.pathname.startsWith('/admin') ? <LeftNavbar /> : ''}
       <>
-        <Routers/>
+        <Routers />
       </>
     </div>
   )

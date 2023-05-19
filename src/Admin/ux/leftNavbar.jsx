@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import '../css/sidebar.css'
 import { useDispatch } from 'react-redux'
+
 import { logoutAdmin } from '../../redux/slice/auth'
 import { removeItem } from '../../redux/helpers/persistance-storage'
+import '../css/sidebar.css'
 
 function LeftNavbar() {
     const [isOpen, setOpen] = useState(false)
@@ -63,4 +64,5 @@ const navbarItems = [
     { title: 'Add Products', navigate: '/admin/add-products', icon: <i className="ri-add-circle-line"></i> },
     { title: 'Orders', navigate: '/admin/orders', icon: <i className="ri-order-play-line"></i> },
     { title: 'Users', navigate: '/admin/users', icon: <i className="ri-user-search-line"></i> },
+    { title: 'Add-Seller', navigate: '/admin/add-seller', icon: <i className="ri-user-add-line"></i> },
 ]

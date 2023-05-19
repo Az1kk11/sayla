@@ -1,8 +1,8 @@
 import axios from "./api";
 
 const OrederServices = {
-    async getOrders () {
-        const {data} = await axios.get('/orders')
+    async getOrders (orders) {
+        const {data} = await axios.get('/orders?status=new')
         return data
     }
 }

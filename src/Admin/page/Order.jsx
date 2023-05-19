@@ -1,35 +1,43 @@
-import React from 'react'
-import { Col, Container, Row } from 'reactstrap'
-import '../css/orders.css'
-import { useNavigate } from 'react-router-dom'
-import Helmet from '../../Components/Helmet/Helmet'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getOrdersFailure, getOrdersStart, getOrdersSuccess } from '../../redux/slice/ordersSlice'
-import OrederServices from '../../redux/services/orderServices'
-import { useEffect } from 'react'
-const Order = () => {
-  const { orders, isLoading } = useSelector(state => state.order) 
-  console.log(orders);
 
-  const navigate = useNavigate()
+import { getOrdersStart, getOrdersSuccess } from '../../redux/slice/ordersSlice'
+import OrederServices from '../../redux/services/orderServices'
+
+import Table from '../ux/table'
+import Helmet from '../../Components/Helmet/Helmet'
+import { Col, Container, Row } from 'reactstrap'
+
+import '../css/orders.css'
+import { toast } from 'react-toastify'
+
+const Order = () => {
+  const { orders, isLoading } = useSelector(state => state.order)
+  const [searchOrders, setSearchOrders] = useState(orders)
   const dispatch = useDispatch()
 
   const getOrders = async () => {
     dispatch(getOrdersStart())
     try {
       const response = await OrederServices.getOrders()
-      console.log(response);
-      dispatch(getOrdersSuccess(response))
+      dispatch(getOrdersSuccess(response.orders))
     } catch (error) {
-      console.log(error);
-      dispatch(getOrdersFailure(error))
+      toast.error(error.message)
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getOrders()
-  },[])
-  
+  }, [])
+
+  const handlerSearch = e => {
+    const searchTerm = e.target.value;
+    const searchOrdersFilter = orders.filter(
+      item => item.user_name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    setSearchOrders(searchOrdersFilter)
+  }
+
   return (
     <Helmet title='Orders'>
       <section className='orders'>
@@ -42,38 +50,34 @@ const Order = () => {
               <div className="input-group">
                 <input type="text"
                   placeholder='Search order'
+                  onChange={handlerSearch}
                 />
                 <i className="ri-search-line"></i>
               </div>
             </Col>
           </Row>
           <Row className='table-box mt-3 p-3'>
-            <Col lg='12'>
-              <table className="table">
-                <thead>
-                  <th>ID</th>
-                  <th>Date</th>
-                  <th>Full Name</th>
-                  <th>Total</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>OR-3233212</td>
-                    <td>28 Jan 2023</td>
-                    <td>Josh Lucos</td>
-                    <td>$1212</td>
-                    <td className='completed'>
-                      Jetkezip berildi
-                    </td>
-                    <td onClick={() => navigate('/orders/order-details')} className='td-hover'>
-                      <i className="ri-eye-line"></i>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </Col>
+            {isLoading ? (
+              <h3 className='text-light'>Loading...</h3>
+            ) : (
+              <Col lg='12'>
+                <table className="table">
+                  <thead>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>User Name</th>
+                    <th>Product name</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </thead>
+                  {searchOrders.length === 0 ? (
+                    <Table data={orders} />
+                  ) : (
+                    <Table data={searchOrders} />
+                  )}
+                </table>
+              </Col>
+            )}
           </Row>
         </Container>
       </section>

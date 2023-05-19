@@ -1,19 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import AuthServices from '../../redux/services/auth'
+import { siginAdminStart, siginAdminSuccess, signAdminFailure } from '../../redux/slice/auth'
+
+import Helmet from '../../Components/Helmet/Helmet'
 import { Button } from 'reactstrap'
 import '../css/adminLogin.css'
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { siginAdminStart, siginAdminSuccess, signAdminFailure } from '../../redux/slice/auth'
-import AuthServices from '../../redux/services/auth'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Helmet from '../../Components/Helmet/Helmet'
+import { toast } from 'react-toastify'
 
 function AdminLogin() {
-  const [phone, setPhone] = useState('')
-  const [password, setPassword] = useState('')
-  const dispatch = useDispatch()
   const { isLoading, logedIn } = useSelector(state => state.auth)
+  const [password, setPassword] = useState('')
+  const [phone, setPhone] = useState('')
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const loginHandler = async e => {
@@ -23,8 +24,10 @@ function AdminLogin() {
     try {
       const response = await AuthServices.adminLogin(user)
       dispatch(siginAdminSuccess(response))
+      toast.success('You have successfully logged in')
     } catch (error) {
       dispatch(signAdminFailure())
+      toast.error(error.message)
     }
   }
 

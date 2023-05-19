@@ -1,13 +1,14 @@
-import React from "react";
-import { Container, Pagination, PaginationItem, PaginationLink } from "reactstrap";
-import '../css/products.css'
-import Helmet from "../../Components/Helmet/Helmet";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductsFailure, getProductsStart, getProductsSuccess } from "../../redux/slice/productsSlice";
+
+import { getProductsStart, getProductsSuccess } from "../../redux/slice/productsSlice";
 import ProductService from "../../redux/services/productsService";
-import { useEffect } from "react";
+
+import Helmet from "../../Components/Helmet/Helmet";
 import { ProductsItem } from "../ux";
-import { useState } from "react";
+import { Container, Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import { toast } from "react-toastify";
+import '../css/products.css'
 
 const Products = () => {
   const [item, setItem] = useState()
@@ -20,7 +21,7 @@ const Products = () => {
       const response = await ProductService.getProducts(item)
       dispatch(getProductsSuccess(response.products))
     } catch (error) {
-      dispatch(getProductsFailure(error))
+      toast.error(error.message)
     }
   }
 
