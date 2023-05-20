@@ -10,7 +10,9 @@
 .add-product .descr{
     margin-right: 20px;
 }
-
+.add-product .btn-group{
+    margin-bottom: 20px;
+}
 
 .form__group span {
     display: flex;

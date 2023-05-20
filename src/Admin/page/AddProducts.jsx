@@ -170,25 +170,6 @@ function AddProducts() {
                 </FormGroup>
               </Col>
               <Col lg='6'>
-                <h3 className='text-light fs-5 mb-2'>Category</h3>
-                <ButtonGroup>
-                  {
-                    categories.map((item, index) => (
-                      <Button
-                        key={index}
-                        color="primary"
-                        outline
-                        name='category_id'
-                        onClick={() => onCheckboxBtnClick(item.id)}
-                        active={category_id.includes(item.id)}
-                      >
-                        {item.title}
-                      </Button>
-                    ))
-                  }
-                </ButtonGroup>
-              </Col>
-              <Col lg='6'>
                 <FormGroup className="form__group">
                   <span>Title Image</span>
                   <Input
@@ -211,9 +192,26 @@ function AddProducts() {
                   />
                 </FormGroup>
               </Col>
+              <Col lg='12'>
+                <h3 className='text-light fs-5 mb-2'>Category</h3>
+                <ButtonGroup>
+                  {
+                    categories.map((item, index) => (
+                      <Button
+                        key={index}
+                        outline
+                        name='category_id'
+                        onClick={() => onCheckboxBtnClick(item.id)}
+                        active={category_id.includes(item.id)}
+                      >
+                        {item.title}
+                      </Button>
+                    ))
+                  }
+                </ButtonGroup>
+              </Col>
             </Row>
             <Button
-              color="primary"
               type='submit'
             >
               {isLoading ? 'Loading...' : 'Add'}

@@ -14,7 +14,7 @@ function Table({ data }) {
                     <td className='completed'>
                         {item.status}
                     </td>
-                    <td onClick={() => navigate('/admin/orders/order-details')} className='td-hover'>
+                    <td onClick={() => navigate(`/admin/orders/order-details/${item.id}`)} className='td-hover'>
                         <i className="ri-eye-line"></i>
                     </td>
                 </tr>

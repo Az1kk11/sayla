@@ -18,7 +18,7 @@ function Routers() {
           <Route element={<Users />} path='/admin/users' exact />
           <Route element={<Order />} path='/admin/orders' exact />
           <Route element={<AddSellers />} path='/admin/add-seller' exact />
-          <Route element={<OrderDetails />} path='/admin/orders/order-details' exact />
+          <Route element={<OrderDetails />} path='/admin/orders/order-details/:id' exact />
         </Route>
     </Routes>
   )

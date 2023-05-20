@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     isLoading: false,
     orders: [],
-    orderDetail: null,
+    orderDetail: [],
     error: null,
 }
 

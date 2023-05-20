@@ -1,6 +1,7 @@
 .products {
     width: 100%;
     padding: 20px;
+    overflow-y: auto;
 }
 .products h3{
     color: #fff;
@@ -23,6 +24,15 @@
     font-size: 18px;
     border-bottom: 1px solid rgba(170, 170, 170, 0.669) !important;
     font-weight: 500;
+}
+.products .pagination .page-link{
+    background: rgba(0,0,0,.2);
+    border: none;
+    color: #fff;
+}
+.products .pagination .page-link:hover{
+    background: rgba(0,0,0,.1);
+    color: #aaa;
 }
 .products .table td {
     color: #ddd;
