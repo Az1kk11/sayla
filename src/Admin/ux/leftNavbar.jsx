@@ -64,5 +64,6 @@ const navbarItems = [
     { title: 'Add Products', navigate: '/admin/add-products', icon: <i className="ri-add-circle-line"></i> },
     { title: 'Orders', navigate: '/admin/orders', icon: <i className="ri-order-play-line"></i> },
     { title: 'Users', navigate: '/admin/users', icon: <i className="ri-user-search-line"></i> },
-    { title: 'Add-Seller', navigate: '/admin/add-seller', icon: <i className="ri-user-add-line"></i> },
+    { title: 'Categories', navigate: '/admin/categories', icon: <i class="ri-bar-chart-horizontal-line"></i> },
+    { title: 'Sellers', navigate: '/admin/seller', icon: <i class="ri-building-line"></i> },
 ]

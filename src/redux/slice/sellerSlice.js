@@ -21,13 +21,28 @@ export const SellerSlice = createSlice({
         getSellerFailure: (state, action) => {
             state.error = action.payload
         },
+
+        postSellerStart: state => {
+            state.isLoading = true
+        },
+        postSellerSuccess: state => {
+            state.isLoading = false
+        },
+        postSellerFailure: state => {
+            state.isLoading = false
+            state.error = 'Error'
+        }
     }
 })
 
 export const {
     getSellerStart,
     getSellerSuccess,
-    getSellerFailure
+    getSellerFailure,
+
+    postSellerStart,
+    postSellerSuccess,
+    postSellerFailure
 } = SellerSlice.actions
 
 export default SellerSlice.reducer
