@@ -2,19 +2,22 @@
     width: 100%;
     padding: 20px;
 }
-.users h3{
+
+.users h3 {
     color: #fff;
     margin-bottom: 25px;
     margin-top: 12px;
     margin-left: 10px;
 }
-.users .bg-box{
-    background: rgba(0,0,0,.2);
+
+.users .bg-box {
+    background: rgba(0, 0, 0, .2);
     overflow-y: scroll;
     padding: 20px;
     border-radius: 5px;
     height: 560px;
 }
+
 .users .table th {
     color: rgba(235, 235, 235, 0.749);
     font-size: 18px;

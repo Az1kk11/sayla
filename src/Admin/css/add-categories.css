@@ -1,27 +1,33 @@
-.seller{
+.categorie {
     padding: 40px 0px;
     width: 100%;
 }
-.add-selers{
+
+.add-categorie {
     height: 90vh;
 }
-.add-selers .table-seller{
-    background: rgba(0,0,0,.2);
+
+.add-categorie .table-categorie {
+    background: rgba(0, 0, 0, .2);
     height: 300px;
     overflow-y: auto;
 }
-.add-selers .table-seller tr{
+
+.add-categorie .table-categorie tr {
     border-color: rgb(147, 147, 147);
 }
-.add-selers .table-seller tbody tr th,
-.add-selers .table-seller tbody tr td{
+
+.add-categorie .table-categorie tbody tr th,
+.add-categorie .table-categorie tbody tr td {
     color: rgb(213, 213, 213);
 }
-.add-selers .table-seller tbody Button{
+
+.add-categorie .table-categorie tbody Button {
     padding: 0px 10px;
     margin: 0;
 }
-.add-selers .table-seller .category-item:hover{
+
+.add-categorie .table-categorie .category-item:hover {
     color: rgb(76, 169, 255);
     cursor: pointer;
 }

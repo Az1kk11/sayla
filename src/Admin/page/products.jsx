@@ -21,7 +21,7 @@ const Products = () => {
       const response = await ProductService.getProducts(item)
       dispatch(getProductsSuccess(response.products))
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.response.data.message)
     }
   }
 
@@ -33,7 +33,7 @@ const Products = () => {
     <Helmet title='Products'>
       <section className="products">
         <Container className="d-flex align-items-center flex-column">
-          <h3>All Products</h3> 
+          <h3>All Products</h3>
           <div className="bg-table">
             {isLoading ? (
               <h3 className="text-center mt-5" >Loading...</h3>

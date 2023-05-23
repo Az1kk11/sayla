@@ -7,14 +7,17 @@
 .add-product h4 {
     color: white;
 }
-.add-product .descr{
+
+.add-product .descr {
     margin-right: 20px;
 }
-.add-product .btn-group button{
+
+.add-product .btn-group button {
     color: #fff;
     border-color: #fff;
 }
-.add-product .btn-group{
+
+.add-product .btn-group {
     margin-bottom: 20px;
 }
 

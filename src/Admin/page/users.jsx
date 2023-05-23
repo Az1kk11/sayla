@@ -19,7 +19,7 @@ function Users() {
       const response = await UserAuthServices.getUsers()
       dispatch(getUsersSuccess(response.users))
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.message);
     }
   }
 

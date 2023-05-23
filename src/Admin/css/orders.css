@@ -96,12 +96,13 @@
     ;
 }
 
-.orders tbody .completed{
+.orders tbody .completed {
     color: #3cb72c;
     font-weight: 600;
     position: relative;
 }
-.orders tbody .completed::after{
+
+.orders tbody .completed::after {
     content: "";
     position: absolute;
     top: 17px;

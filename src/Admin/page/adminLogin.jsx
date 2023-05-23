@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom'
 
 import AuthServices from '../../redux/services/auth'
 import { siginAdminStart, siginAdminSuccess, signAdminFailure } from '../../redux/slice/auth'
-
 import Helmet from '../../Components/Helmet/Helmet'
+
 import { Button } from 'reactstrap'
-import '../css/adminLogin.css'
 import { toast } from 'react-toastify'
+
+import '../css/adminLogin.css'
 
 function AdminLogin() {
   const { isLoading, logedIn } = useSelector(state => state.auth)
@@ -27,7 +28,7 @@ function AdminLogin() {
       toast.success('You have successfully logged in')
     } catch (error) {
       dispatch(signAdminFailure())
-      toast.error(error.message)
+      toast.error(error.response.data.message)
     }
   }
 
@@ -65,6 +66,7 @@ function AdminLogin() {
             className='btn'
             type='submit'
             onClick={loginHandler}
+            disabled={isLoading}
           >
             {isLoading ? 'loading...' : 'Login'}
           </Button>

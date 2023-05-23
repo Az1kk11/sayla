@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import { Container } from 'reactstrap'
-import '../css/orderDetails.css'
-import imgaProduct from '../img/mebel.jpg'
-import Helmet from '../../Components/Helmet/Helmet'
 import { useDispatch, useSelector } from 'react-redux'
+
 import { getOrderDetailStart, getOrderDetailSuccess } from '../../redux/slice/ordersSlice'
 import OrederServices from '../../redux/services/orderServices'
-import { toast } from 'react-toastify'
 import moment from 'moment/moment'
+
+import { Container } from 'reactstrap'
+import Helmet from '../../Components/Helmet/Helmet'
+import { toast } from 'react-toastify'
 import { TrItems } from '../ux'
+
+import '../css/orderDetails.css'
 
 function OrderDetails() {
   const { orderDetail, isLoading } = useSelector(state => state.order)
@@ -22,7 +24,7 @@ function OrderDetails() {
       const response = await OrederServices.getOrderDetail(id)
       dispatch(getOrderDetailSuccess(response))
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.response.data.message)
     }
   }
 
@@ -30,10 +32,8 @@ function OrderDetails() {
     getOrderDetail()
   }, [id])
 
-  console.log(orderDetail);
-
   return (
-    <Helmet>
+    <Helmet title={'Order - Detail'}>
       <section className='orders-details'>
         <Container>
           <div className="table-order">

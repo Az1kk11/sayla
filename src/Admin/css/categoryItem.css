@@ -1,26 +1,31 @@
-.cat-items{
+.cat-items {
     padding: 20px 30px;
     width: 100%;
     height: 100vh;
 }
-.cat-items .table-box{
-    background: rgba(0,0,0,.2);
+
+.cat-items .table-box {
+    background: rgba(0, 0, 0, .2);
     width: 100%;
     height: 480px;
     padding: 15px;
     margin-top: 20px;
     overflow-y: auto;
 }
-.cat-items .table-box thead tr th{
+
+.cat-items .table-box thead tr th {
     color: #fff;
 }
-.cat-items .table-box img{
+
+.cat-items .table-box img {
     width: 40px;
 }
-.cat-items .table-box tr{
+
+.cat-items .table-box tr {
     border-color: rgb(147, 147, 147);
 }
+
 .cat-items .table-box tbody tr th,
-.cat-items .table-box tbody tr td{
+.cat-items .table-box tbody tr td {
     color: rgb(213, 213, 213);
 }

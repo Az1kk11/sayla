@@ -1,14 +1,14 @@
-
 .orders-details {
     width: 100%;
     height: 100vh;
     overflow-y: auto;
 }
 
-.orders-details .orders-box{
+.orders-details .orders-box {
     display: flex;
     justify-content: space-between;
 }
+
 .orders-details ul {
     margin-top: 20px;
     padding: 0;
@@ -19,7 +19,7 @@
     margin-left: 30px;
 }
 
-.orders-details ul li h4{
+.orders-details ul li h4 {
     color: #fff;
 }
 
@@ -38,7 +38,8 @@
     padding-left: 0;
     padding-right: 30px;
 }
-.orders-details .order-items{
+
+.orders-details .order-items {
     width: 60%;
     height: 500px;
     background: rgba(0, 0, 0, .2);
@@ -47,21 +48,25 @@
     overflow-x: scroll;
     padding-bottom: 0px;
 }
-.orders-details .order-items tr th{
+
+.orders-details .order-items tr th {
     color: rgb(153, 153, 153);
 }
-.orders-details .order-items tr td{
+
+.orders-details .order-items tr td {
     color: #fff;
 }
-.orders-details .order-items .img-box{
+
+.orders-details .order-items .img-box {
     width: 80px;
     height: 60px;
     object-fit: cover;
     border-radius: 5px;
     overflow: hidden;
-    margin-right:10px;
+    margin-right: 10px;
 }
-.orders-details .order-items .img-box img{
+
+.orders-details .order-items .img-box img {
     width: 100%;
     height: 100%;
 }

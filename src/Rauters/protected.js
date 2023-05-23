@@ -3,9 +3,9 @@ import { Navigate, Outlet } from "react-router-dom"
 
 const useAuth = () => {
     const user = localStorage.getItem('token')
-    if(user){
+    if (user) {
         return true
-    }else{
+    } else {
         return false
     }
 }

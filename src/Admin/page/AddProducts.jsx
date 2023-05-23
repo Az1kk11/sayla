@@ -12,8 +12,8 @@ import ProductService from '../../redux/services/productsService'
 import Helmet from '../../Components/Helmet/Helmet'
 import { Button, ButtonGroup, Col, Container, Form, FormGroup, Input, Row } from 'reactstrap'
 
-import '../css/addProducts.css'
 import { toast } from 'react-toastify'
+import '../css/addProducts.css'
 
 function AddProducts() {
   const { isLoading } = useSelector(state => state.product)
@@ -37,7 +37,7 @@ function AddProducts() {
       dispatch(getCategorieSuccess(response.categories))
     } catch (error) {
       dispatch(getCategorieFailure(error))
-      toast.error(error.message)
+      toast.error(error.response.data.message)
     }
   }
 
@@ -48,7 +48,7 @@ function AddProducts() {
       dispatch(getSellerSuccess(response.sellers))
     } catch (error) {
       dispatch(getSellerFailure(error))
-      toast.error(error.message)
+      toast.error(error.response.data.message)
     }
   }
 
@@ -87,7 +87,7 @@ function AddProducts() {
       dispatch(postProductSuccess())
       toast.success('Product succesfuly created')
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.response.data.message)
     }
   }
 
@@ -111,7 +111,7 @@ function AddProducts() {
   }
 
   return (
-    <Helmet title='Add-Products'>
+    <Helmet title='Add - Products'>
       <section className='add-product'>
         <Container>
           <h4 className="mb-3">Add products</h4>
@@ -213,6 +213,7 @@ function AddProducts() {
             </Row>
             <Button
               type='submit'
+              disabled={isLoading}
             >
               {isLoading ? 'Loading...' : 'Add'}
             </Button>

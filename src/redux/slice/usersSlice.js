@@ -7,17 +7,17 @@ const initialState = {
 }
 
 export const usersSlice = createSlice({
-    name:'user',
+    name: 'user',
     initialState,
-    reducers:{
+    reducers: {
         getUsersStart: state => {
             state.isLoading = true
         },
-        getUsersSuccess: (state, action)=>{
+        getUsersSuccess: (state, action) => {
             state.isLoading = false
             state.users = action.payload
         },
-        getProductsFailure : (state, action) => {
+        getProductsFailure: (state, action) => {
             state.error = action.payload
         },
     }
@@ -27,7 +27,7 @@ export const {
     getUsersStart,
     getUsersSuccess,
     getUsersFailure,
-    
+
 } = usersSlice.actions
 
 export default usersSlice.reducer

@@ -7,17 +7,17 @@ const initialState = {
 }
 
 export const productSlice = createSlice({
-    name:'product',
+    name: 'product',
     initialState,
-    reducers:{
+    reducers: {
         getProductsStart: state => {
             state.isLoading = true
         },
-        getProductsSuccess: (state, action)=>{
+        getProductsSuccess: (state, action) => {
             state.isLoading = false
             state.products = action.payload
         },
-        getProductsFailure : (state, action) => {
+        getProductsFailure: (state, action) => {
             state.error = action.payload
         },
 
@@ -42,7 +42,7 @@ export const {
     postProductStart,
     postProductSuccess,
     postProductFailure,
-    
+
 } = productSlice.actions
 
 export default productSlice.reducer

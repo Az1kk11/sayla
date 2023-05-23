@@ -22,7 +22,7 @@ const Order = () => {
       const response = await OrederServices.getOrders()
       dispatch(getOrdersSuccess(response.orders))
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.response.data.message)
     }
   }
 

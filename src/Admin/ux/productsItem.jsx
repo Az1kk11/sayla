@@ -1,5 +1,6 @@
 import React from 'react'
 import ProductService from '../../redux/services/productsService'
+import { toast } from 'react-toastify'
 import '../css/products.css'
 
 function ProductsItem({ item, getProducts }) {
@@ -7,9 +8,10 @@ function ProductsItem({ item, getProducts }) {
     const deleteProduct = async id => {
         try {
             await ProductService.deleteProduct(id)
+            toast.success('Product succesfuly deleted')
             getProducts()
         } catch (error) {
-            console.log(error);
+            toast.error(error.response.data.message)
         }
     }
 

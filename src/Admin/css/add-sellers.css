@@ -1,0 +1,33 @@
+.seller {
+    height: auto;
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+.add-selers .table-seller {
+    background: rgba(0, 0, 0, .2);
+}
+
+.add-selers .table-seller tr {
+    border-color: rgb(147, 147, 147);
+}
+
+.add-selers .btn-submit {
+    margin-top: 32px;
+}
+
+.add-selers .table-seller tbody tr th,
+.add-selers .table-seller tbody tr td {
+    color: rgb(213, 213, 213);
+}
+
+.add-selers .table-seller tbody Button {
+    padding: 0px 10px;
+    margin: 0;
+}
+
+.add-categorie .table-categorie .category-item:hover {
+    color: rgb(76, 169, 255);
+    cursor: pointer;
+}

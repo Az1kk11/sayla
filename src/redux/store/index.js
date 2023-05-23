@@ -8,7 +8,7 @@ import CategoriesReduser from '../slice/categorieSlice'
 import SellersReduser from '../slice/sellerSlice'
 
 export default configureStore({
-    reducer:{
+    reducer: {
         auth: AuthReduser,
         product: ProductsReduser,
         order: OrdersReduser,

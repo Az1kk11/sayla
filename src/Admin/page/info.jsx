@@ -1,6 +1,9 @@
-import { useSelector } from 'react-redux'
+import React, { useSelector } from 'react-redux'
+
 import { Container } from 'reactstrap'
+
 import Helmet from '../../Components/Helmet/Helmet'
+
 import '../css/info.css'
 
 function Info() {

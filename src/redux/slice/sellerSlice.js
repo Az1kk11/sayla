@@ -3,12 +3,12 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     isLoading: false,
-    sellers : [],
+    sellers: [],
     error: null
 }
 
 export const SellerSlice = createSlice({
-    name : 'seller',
+    name: 'seller',
     initialState,
     reducers: {
         getSellerStart: state => {
