@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Home from '../page/home'
 import {
   AddProducts,
-  AdminLogin,
+  AdminLogin, 
   Info,
   OrderDetails,
   Products,
